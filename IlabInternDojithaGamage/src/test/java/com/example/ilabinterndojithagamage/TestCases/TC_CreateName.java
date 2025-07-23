@@ -26,14 +26,35 @@ public class TC_CreateName {
 
     @Test
     public void testSignUpFormWithCountry() {
-
         createAccountPage.clickNavButton();
         createAccountPage.clickCreateAccountButton();
         createAccountPage.clickSignEmailBtn();
 
         createAccountPage.inputFname("IlabTestUser");
-        createAccountPage.inputLname("Automation");
-        createAccountPage.inputEmail("testuser" + System.currentTimeMillis() + "@example.com");
+        createAccountPage.inputLname("Dojitha");
+
+        // Generate unique email
+        String timestamp = String.valueOf(System.currentTimeMillis());
+        createAccountPage.inputEmail("testuser" + timestamp + "@example.com");
+
+        // Select Country
         createAccountPage.selectCountry("Sri Lanka");
+
+        // Input Mobile Number
+        createAccountPage.inputMobileNumber("771234567");
+
+        // Input Password
+        createAccountPage.inputPassword("Test@1234");
+
+        // Submit the form
+        createAccountPage.clickSubmitButton();
+
+        // Optionally, verify that the user is redirected or a success message appears
+        // Example: $(".success-message").shouldHave(text("Account created successfully"));
+    }
+
+    @AfterMethod
+    public void tearDown() {
+        closeWebDriver();
     }
 }
