@@ -51,6 +51,16 @@ public class CreateAccountPage {
     @FindBy(id = "submit")
     private WebElement submitBtn;
 
+    @FindBy(id="mobErr")
+    private WebElement mobErr;
+
+    @FindBy(id="email_help_block")
+    private WebElement emailErr;
+
+    @FindBy(xpath = "//*[@id=\"sign-up-form\"]/div[5]/p")
+    private WebElement passErr;
+
+
     public CreateAccountPage(WebDriver webDriver) {
         PageFactory.initElements(webDriver,this);
     }
@@ -114,5 +124,15 @@ public class CreateAccountPage {
 
     public void confirmSuccessfulSignUp() {
         // Add confirmation logic later
+    }
+
+    public String getMobileErrorMessage() {
+        return mobErr.getText();
+    }
+    public String getEmailErrorMessage() {
+        return emailErr.getText();
+    }
+    public String getPassErrorMessage() {
+        return passErr.getText();
     }
 }
