@@ -20,6 +20,7 @@ public class CreateAccountPage {
     private SelenideElement inputPw = $x("//*[@id='pw']");
     private SelenideElement submitBtn = $x("//*[@id='submit']");
 
+
     public void clickNavButton() {
         navButton.click();
     }
@@ -66,4 +67,6 @@ public class CreateAccountPage {
     }
 
 
+    public void confirmSuccessfulSignUp() {
+    }
 }
