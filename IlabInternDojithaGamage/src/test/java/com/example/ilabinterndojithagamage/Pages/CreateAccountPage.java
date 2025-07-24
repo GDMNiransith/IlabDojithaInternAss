@@ -1,72 +1,118 @@
 package com.example.ilabinterndojithagamage.Pages;
 
-import com.codeborne.selenide.ElementsCollection;
-import com.codeborne.selenide.SelenideElement;
+import com.codeborne.selenide.Condition;
+import org.openqa.selenium.WebDriver;
+import org.openqa.selenium.WebElement;
+import org.openqa.selenium.support.FindBy;
+import org.openqa.selenium.support.PageFactory;
+import org.openqa.selenium.support.ui.ExpectedConditions;
+import org.openqa.selenium.support.ui.WebDriverWait;
 
-import static com.codeborne.selenide.Selenide.*;
-import static com.codeborne.selenide.Condition.*;
+import java.time.Duration;
+import java.util.List;
+
+import static com.codeborne.selenide.Selenide.$;
+import static com.codeborne.selenide.Selenide.$$;
 
 public class CreateAccountPage {
 
-    private SelenideElement navButton = $x("//*[@id='HeaderLinksDesktopMenu']");
-    private SelenideElement createAccountBtn = $x("//*[@id='HeaderLinksLogin2']");
-    private SelenideElement signEmailBtn = $x("//*[@id='continue_with_email_signup']");
-    private SelenideElement inputFname = $x("//*[@id='fname']");
-    private SelenideElement inputLname = $x("//*[@id='lanme']"); // Fixed typo here
-    private SelenideElement inputEmail = $x("//*[@id='email']");
-    private SelenideElement countryFlag = $x("//*[@id='sign-up-form']/div[4]/div/div/div/div[1]");
-    private ElementsCollection countryListItems = $$x("//ul[@class='country-list']/li");
-    private SelenideElement inputMobileNum = $x("//*[@id='mobileNum']");
-    private SelenideElement inputPw = $x("//*[@id='pw']");
-    private SelenideElement submitBtn = $x("//*[@id='submit']");
+    private WebDriver webDriver;
 
+    @FindBy(id = "HeaderLinksDesktopMenu")
+    private WebElement hamburgerMenu;
 
-    public void clickNavButton() {
-        navButton.click();
+    @FindBy(id = "HeaderLinksLogin2")
+    private WebElement createAccountBtn;
+
+    @FindBy(id = "continue_with_email_signup")
+    private WebElement signEmailBtn;
+
+    @FindBy(id = "fname")
+    private WebElement inputFname;
+
+    @FindBy(id = "lanme")
+    private WebElement inputLname;
+
+    @FindBy(id = "email")
+    private WebElement inputEmail;
+
+    @FindBy(xpath = "//*[@id='sign-up-form']/div[4]/div/div/div/div[1]")
+    private WebElement countryFlag;
+
+    @FindBy(xpath = "//ul[@class='country-list']/li")
+    private List<WebElement> countryListItems;
+
+    @FindBy(id = "mobileNum")
+    private WebElement inputMobileNum;
+
+    @FindBy(id = "pw")
+    private WebElement inputPw;
+
+    @FindBy(id = "submit")
+    private WebElement submitBtn;
+
+    public CreateAccountPage(WebDriver webDriver) {
+        PageFactory.initElements(webDriver,this);
     }
 
+    public void clickMenu() {
+        WebDriverWait wait = new WebDriverWait(webDriver, Duration.ofSeconds(20));
+        wait.until(ExpectedConditions.elementToBeClickable(hamburgerMenu));
+        hamburgerMenu.click();
+    }
+
+    public WebElement menuVisible(){
+        return hamburgerMenu;
+    }
+//
+//    public void clickNavButton() {
+//        $(navButton).click();
+//    }
+
     public void clickCreateAccountButton() {
+        WebDriverWait wait = new WebDriverWait(webDriver, Duration.ofSeconds(20));
+        wait.until(ExpectedConditions.elementToBeClickable(createAccountBtn));
         createAccountBtn.click();
     }
 
     public void clickSignEmailBtn() {
-        signEmailBtn.click();
+        $(signEmailBtn).click();
     }
 
     public void inputFname(String fName) {
-        inputFname.setValue(fName);
+        $(inputFname).setValue(fName);
     }
 
     public void inputLname(String lName) {
-        inputLname.setValue(lName);
+        $(inputLname).setValue(lName);
     }
 
     public void inputEmail(String email) {
-        inputEmail.setValue(email);
+        $(inputEmail).setValue(email);
     }
 
     public void clickCountryFlagDropdown() {
-        countryFlag.shouldBe(visible).click();
+        $(countryFlag).shouldBe(Condition.visible).click();
     }
 
     public void selectCountry(String countryName) {
         clickCountryFlagDropdown();
-        countryListItems.findBy(text(countryName)).shouldBe(visible).click();
+        $$(countryListItems).findBy(Condition.text(countryName)).shouldBe(Condition.visible).click();
     }
 
     public void inputMobileNumber(String mobile) {
-        inputMobileNum.setValue(mobile);
+        $(inputMobileNum).setValue(mobile);
     }
 
     public void inputPassword(String password) {
-        inputPw.setValue(password);
+        $(inputPw).setValue(password);
     }
 
     public void clickSubmitButton() {
-        submitBtn.click();
+        $(submitBtn).click();
     }
 
-
     public void confirmSuccessfulSignUp() {
+        // Add confirmation logic later
     }
 }
